@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SportProduct.Data;
 using System; 
 using SportProduct.Models;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 
 namespace SportProduct.Controllers
 {
@@ -18,6 +19,62 @@ namespace SportProduct.Controllers
         {
             _context = context;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            var products = await _context.Products.OrderBy(p => p.NamePro).ToListAsync();
+            return View(products);
+        }
+
+
+        // GET: Products/Create
+        public IActionResult Create()
+        {
+            var viewModel = new ProductCreateViewModel();
+            return View(viewModel);
+        }
+
+        // POST: Products/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("NamePro,DecriptionPro,Category,Price,ImagePro,ManufacturingDate")] ProductCreateViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var newProduct = new Product
+                {
+                    NamePro = viewModel.NamePro,
+                    DecriptionPro = viewModel.DecriptionPro,
+                    Category = viewModel.Category,
+                    Price = viewModel.Price,
+                    ImagePro = viewModel.ImagePro,
+                    ManufacturingDate = DateOnly.FromDateTime(viewModel.ManufacturingDate)
+                };
+
+                _context.Add(newProduct);
+                await _context.SaveChangesAsync();
+                // Chuyển hướng đến trang chi tiết của sản phẩm vừa tạo
+                return RedirectToAction(nameof(Details), new { id = newProduct.ProductId });
+            }
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            // Tái sử dụng view FirstProductDetails để hiển thị chi tiết
+            return View("FirstProductDetails", product);
+        }
+
 
         // GET: /Products/FirstProductDetails
         // This action fetches the very first product from the database.

@@ -1,8 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Chào mừng đến với SportProduct</h1>
+        <p class="col-md-8 fs-4">
+            Đây là ứng dụng quản lý các sản phẩm thể thao. Bạn có thể xem danh sách,
+            tạo mới, chỉnh sửa và xóa các sản phẩm một cách dễ dàng.
+        </p>
+        <a class="btn btn-primary btn-lg" asp-controller="Products" asp-action="Index" role="button">
+            Xem danh sách sản phẩm &raquo;
+        </a>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-6 mb-4">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Tạo sản phẩm</h2>
+            <p>Bắt đầu thêm các sản phẩm mới vào danh mục của bạn ngay bây giờ.</p>
+            <a class="btn btn-outline-light" asp-controller="Products" asp-action="Create" role="button">
+                Tạo sản phẩm mới
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="h-100 p-5 bg-light border rounded-3">
+            <h2>Khám phá</h2>
+            <p>Xem chi tiết sản phẩm đầu tiên trong danh sách của chúng tôi để khám phá các mặt hàng nổi bật.</p>
+            <a class="btn btn-outline-secondary" asp-controller="Products" asp-action="FirstProductDetails" role="button">
+                Xem sản phẩm đầu tiên
+            </a>
+        </div>
+    </div>
 </div>
