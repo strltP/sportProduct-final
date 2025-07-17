@@ -1,0 +1,22 @@
+﻿@* This is the partial view for the CategorySelector ViewComponent *@
+@model SportProduct.Models.CategorySelectorViewModel
+
+@* This select list will be rendered by the component.
+  The 'name' attribute is crucial for model binding. It must match the
+  property name in the main form's ViewModel (which is 'Category').
+*@
+<select name="Category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+    <option value="">-- Chọn phân loại --</option>
+    @foreach (var category in Model.Categories)
+    {
+        @* Check if the current category in the loop is the selected one *@
+        if (category == Model.SelectedCategory)
+        {
+            <option value="@category" selected>@category</option>
+        }
+        else
+        {
+            <option value="@category">@category</option>
+        }
+    }
+</select>

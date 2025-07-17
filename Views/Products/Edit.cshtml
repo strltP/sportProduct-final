@@ -1,0 +1,104 @@
+﻿@model SportProduct.Models.ProductEditViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .field-validation-error {
+            color: #dc2626;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">@ViewData["Title"]</h1>
+            <h2 class="text-xl font-semibold text-gray-700 mb-2">Sản phẩm: @Model.NamePro</h2>
+            <hr class="mb-6" />
+
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-red-600 bg-red-100 p-3 rounded-md mb-4"></div>
+                <input type="hidden" asp-for="ProductId" />
+
+                <div class="space-y-6">
+                    <!-- Tên sản phẩm -->
+                    <div>
+                        <label asp-for="NamePro" class="block text-sm font-medium text-gray-700"></label>
+                        <input asp-for="NamePro" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <span asp-validation-for="NamePro" class="mt-2 text-sm text-red-600"></span>
+                    </div>
+
+                    <!-- Phân loại (Sử dụng ViewComponent) -->
+                    <div>
+                        <label asp-for="Category" class="block text-sm font-medium text-gray-700"></label>
+                        @* Dòng này gọi ViewComponent.
+                        - "CategorySelector" là tên của component.
+                        - Chúng ta truyền category hiện tại của sản phẩm vào component
+                        để nó có thể được chọn sẵn trong danh sách.
+                        *@
+                        @await Component.InvokeAsync("CategorySelector", new { selectedCategory = Model.Category })
+                        <span asp-validation-for="Category" class="mt-2 text-sm text-red-600"></span>
+                    </div>
+
+                    <!-- Giá -->
+                    <div>
+                        <label asp-for="Price" class="block text-sm font-medium text-gray-700"></label>
+                        <input asp-for="Price" type="number" step="0.01" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <span asp-validation-for="Price" class="mt-2 text-sm text-red-600"></span>
+                    </div>
+
+                    <!-- Ngày sản xuất -->
+                    <div>
+                        <label asp-for="ManufacturingDate" class="block text-sm font-medium text-gray-700"></label>
+                        <input asp-for="ManufacturingDate" type="date" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <span asp-validation-for="ManufacturingDate" class="mt-2 text-sm text-red-600"></span>
+                    </div>
+
+                    <!-- Mô tả -->
+                    <div>
+                        <label asp-for="DecriptionPro" class="block text-sm font-medium text-gray-700"></label>
+                        <textarea asp-for="DecriptionPro" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                        <span asp-validation-for="DecriptionPro" class="mt-2 text-sm text-red-600"></span>
+                    </div>
+
+                    <!-- Đường dẫn hình ảnh -->
+                    <div>
+                        <label asp-for="ImagePro" class="block text-sm font-medium text-gray-700"></label>
+                        <input asp-for="ImagePro" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <span asp-validation-for="ImagePro" class="mt-2 text-sm text-red-600"></span>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <a asp-action="FirstProductDetails" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Hủy</a>
+                    <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Lưu thay đổi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @* Bao gồm các script xác thực của jQuery *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+</html>
