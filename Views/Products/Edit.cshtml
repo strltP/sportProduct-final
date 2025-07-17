@@ -37,47 +37,41 @@
                 <input type="hidden" asp-for="ProductId" />
 
                 <div class="space-y-6">
-                    <!-- Tên sản phẩm -->
+                    <!-- Các trường khác không thay đổi -->
                     <div>
                         <label asp-for="NamePro" class="block text-sm font-medium text-gray-700"></label>
                         <input asp-for="NamePro" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                         <span asp-validation-for="NamePro" class="mt-2 text-sm text-red-600"></span>
                     </div>
 
-                    <!-- Phân loại (Sử dụng ViewComponent) -->
                     <div>
                         <label asp-for="Category" class="block text-sm font-medium text-gray-700"></label>
-                        @* Dòng này gọi ViewComponent.
-                        - "CategorySelector" là tên của component.
-                        - Chúng ta truyền category hiện tại của sản phẩm vào component
-                        để nó có thể được chọn sẵn trong danh sách.
-                        *@
                         @await Component.InvokeAsync("CategorySelector", new { selectedCategory = Model.Category })
                         <span asp-validation-for="Category" class="mt-2 text-sm text-red-600"></span>
                     </div>
 
-                    <!-- Giá -->
                     <div>
                         <label asp-for="Price" class="block text-sm font-medium text-gray-700"></label>
                         <input asp-for="Price" type="number" step="0.01" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                         <span asp-validation-for="Price" class="mt-2 text-sm text-red-600"></span>
                     </div>
 
-                    <!-- Ngày sản xuất -->
+                    <!-- *** THAY ĐỔI NẰM Ở ĐÂY *** -->
                     <div>
                         <label asp-for="ManufacturingDate" class="block text-sm font-medium text-gray-700"></label>
-                        <input asp-for="ManufacturingDate" type="date" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <input asp-for="ManufacturingDate"
+                               type="date"
+                               max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                               class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                         <span asp-validation-for="ManufacturingDate" class="mt-2 text-sm text-red-600"></span>
                     </div>
 
-                    <!-- Mô tả -->
                     <div>
                         <label asp-for="DecriptionPro" class="block text-sm font-medium text-gray-700"></label>
                         <textarea asp-for="DecriptionPro" rows="4" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                         <span asp-validation-for="DecriptionPro" class="mt-2 text-sm text-red-600"></span>
                     </div>
 
-                    <!-- Đường dẫn hình ảnh -->
                     <div>
                         <label asp-for="ImagePro" class="block text-sm font-medium text-gray-700"></label>
                         <input asp-for="ImagePro" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -95,10 +89,11 @@
         </div>
     </div>
 
-    @* Bao gồm các script xác thực của jQuery *@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
+    @* Các script xác thực chuẩn vẫn cần được load ở file layout chính của bạn *@
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 </body>
 </html>

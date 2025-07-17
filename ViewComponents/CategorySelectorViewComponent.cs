@@ -16,7 +16,7 @@ namespace SportProduct.ViewComponents
         {
             // The list of valid categories is defined here.
             // This could also be fetched from a database or configuration file.
-            var categories = new List<string> { "Vợt", "Bóng", "Cầu", "Đệm", "Quần áo", "Kiểm tra ngày 17/7"};
+            var categories = new List<string> { "Vợt", "Bóng", "Cầu", "Đệm", "Quần áo"};
 
             var viewModel = new CategorySelectorViewModel
             {
