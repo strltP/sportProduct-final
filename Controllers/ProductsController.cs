@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using SportProduct.Data;
-using System; // Thêm using System để sử dụng DateOnly và TimeOnly
+using System; 
 using SportProduct.Models;
 
 namespace SportProduct.Controllers
@@ -29,8 +29,7 @@ namespace SportProduct.Controllers
                                              .OrderBy(p => p.ProductId)
                                              .FirstOrDefaultAsync();
 
-            // If the database is empty, no product will be found.
-            // In this case, return a "Not Found" result.
+           
             if (firstProduct == null)
             {
                 return NotFound("Không tìm thấy sản phẩm nào trong cơ sở dữ liệu.");
@@ -112,15 +111,14 @@ namespace SportProduct.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("FirstProductDetails"); // Hoặc một action khác
+                return RedirectToAction("FirstProductDetails"); 
             }
 
-            // If model state is invalid, we simply return the view.
-            // We no longer need to repopulate the category list here.
+            
             return View(viewModel);
         }
 
-        // The GetCategories() helper method has been removed.
+       
 
         private bool ProductExists(int id)
         {

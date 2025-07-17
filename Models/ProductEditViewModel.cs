@@ -1,9 +1,9 @@
 ﻿using SportProduct.Validation;
 using System;
 using System.ComponentModel.DataAnnotations;
-using SportProduct.Validation; // Import the custom validation attribute
+using SportProduct.Validation; 
 
-namespace SportProduct.Models // Thay YourProjectName bằng tên dự án của bạn
+namespace SportProduct.Models
 {
     public class ProductEditViewModel
     {
@@ -32,10 +32,9 @@ namespace SportProduct.Models // Thay YourProjectName bằng tên dự án của
         [Display(Name = "Ngày sản xuất")]
         [Required(ErrorMessage = "Ngày sản xuất không được để trống.")]
         [DataType(DataType.Date)]
-        [PastDate] // Apply our custom validation attribute
+        [PastDate] 
         public DateTime ManufacturingDate { get; set; }
 
-        // The 'Categories' property has been removed.
-        // The ViewComponent will now handle the category list.
+        
     }
 }

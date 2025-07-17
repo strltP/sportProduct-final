@@ -37,7 +37,7 @@
                 <input type="hidden" asp-for="ProductId" />
 
                 <div class="space-y-6">
-                    <!-- Các trường khác không thay đổi -->
+                    <!-- Các trường không thay đổi -->
                     <div>
                         <label asp-for="NamePro" class="block text-sm font-medium text-gray-700"></label>
                         <input asp-for="NamePro" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
@@ -56,7 +56,7 @@
                         <span asp-validation-for="Price" class="mt-2 text-sm text-red-600"></span>
                     </div>
 
-                    <!-- *** THAY ĐỔI NẰM Ở ĐÂY *** -->
+                    <!--THAY ĐỔI -->
                     <div>
                         <label asp-for="ManufacturingDate" class="block text-sm font-medium text-gray-700"></label>
                         <input asp-for="ManufacturingDate"
@@ -89,7 +89,7 @@
         </div>
     </div>
 
-    @* Các script xác thực chuẩn vẫn cần được load ở file layout chính của bạn *@
+    @* script gi do *@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
